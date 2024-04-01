@@ -1,3 +1,6 @@
-1.diy,自主装机，需要进行表单（cpu，显卡。。。缺一不可）校验；就像注册表达校验UserRegisterForm.java那样
+1.diy,自主装机，需要进行表单（cpu，显卡。。。缺一不可）校验；就像注册表达校验UserRegisterForm.java那样；beanutil
 2.错误信息是通过modelAndView.addObject传到前端页面
 3.如果是return login是转发，地址栏不发生改变；应该使用重定向redirect
+4.用户数据存储再session里，cartlist ，product存储object
+5.图片便利一方面需要顺序命名好，且利用前端的xxstat.index；遍历图片
+6.先验证数据传入是否有误，再去写业务

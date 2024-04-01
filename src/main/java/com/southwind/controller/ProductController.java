@@ -46,8 +46,8 @@ public class ProductController {
 
     /**
      * 商品列表
-     * @param type
-     * @param productCategoryId
+     * @param type；几级分类
+     * @param productCategoryId；类别对应的ID
      * @param session
      * @return
      */

@@ -8,6 +8,7 @@ import com.southwind.entity.User;
 import com.southwind.exception.MMallException;
 import com.southwind.result.ResponseEnum;
 import com.southwind.service.CartService;
+import com.southwind.service.ProductService;
 import com.southwind.service.UserAddressService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,23 @@ public class CartController {
     private CartService cartService;
     @Autowired
     private UserAddressService userAddressService;
+    @Autowired
+    private ProductService productService;
 
+    @GetMapping("/diy/{type}/{id}")
+    public ModelAndView diy(
+            @PathVariable("type") Integer type,
+            @PathVariable("id") Integer productCategoryId,
+            HttpSession session){
+        if(type == null || productCategoryId == null){
+            log.info("【商品列表】参数为空");
+            throw new MMallException(ResponseEnum.PARAMETER_NULL);
+        }
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("diy");
+        modelAndView.addObject("productList", this.productService.findAllByTypeAndProductCategoryId(type, productCategoryId));
+        return modelAndView;
+    }
     /**
      * 添加购物车
      * @return

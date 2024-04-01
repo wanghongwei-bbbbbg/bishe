@@ -48,7 +48,11 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryMappe
         List<ProductCategoryVO> levelOneList = buildMenu(productCategoryVOList);
         return levelOneList;
     }
-
+    /**
+     *
+     * 找一级菜单
+     * @return
+     */
     @Override
     public List<ProductCategoryVO> findAllProductByCategoryLevelOne() {
         QueryWrapper<ProductCategory> queryWrapper = new QueryWrapper<>();

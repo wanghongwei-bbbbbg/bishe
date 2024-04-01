@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>diy页面</title>
+    <script type="text/javascript" src="/js/jquery-1.11.1.min_044d0927.js"></script>
+    <script type="text/javascript" src="/js/jquery.bxslider_e88acd1b.js"></script>
+    <th:block th:include="common.html :: source"></th:block>
+</head>
+<body>
+    <th:block th:include="common.html :: diyheader"></th:block>
+    <th:block th:include="common.html :: category"></th:block>
+    <div class="i_bg1">
+        <div class="content mar_20">
+            <div id="favoriteList"></div>
+            <div class="l_list2">
+                <div class="list_c">
+                    <ul class="cate_list">
+
+                        <!--                    <li th:each="product:${productList}">-->
+                        <!--                        <div class="name">-->
+                        <!--                            <a th:href="'/product/findById/'+${product.id}" th:text="${product.name}"></a>-->
+                        <!--                        </div>-->
+                        <!--                        <div class="price">-->
+                        <!--                            <font>￥<span th:text="${product.price}"></span></font> &nbsp;-->
+                        <!--                        </div>-->
+                        <!--                        <div class="img">-->
+                        <!--                            <a th:href="'/product/findById/'+${product.id}">-->
+                        <!--                                <img th:src="'/images/'+${product.fileName}" width="185"-->
+                        <!--                                     height="155" />-->
+                        <!--                            </a>-->
+                        <!--                        </div>-->
+                        <!--                        <div class="carbg">-->
+                        <!--                            <a href="javascript:void(0);" class="ss" >收藏</a>-->
+                        <!--                            <a href="javascript:void(0);" class="j_car" >加入购物车</a>-->
+                        <!--                        </div>-->
+                        <!--                    </li>-->
+
+                        <li th:each="product:${productList}">
+                            <div class="name">
+                                <a th:href="'/product/detail/'+${product.id}" th:text="${product.name}"></a>
+                            </div>
+                            <div class="price">
+                                <font>￥<span th:text="${product.price}"></span></font> &nbsp;
+                            </div>
+                            <div class="img">
+                                <a th:href="'/product/detail/'+${product.id}">
+                                    <img th:src="'/images/'+${product.fileName}" width="185"
+                                         height="155" />
+                                </a>
+                            </div>
+                            <div class="carbg">
+                                <a href="javascript:void(0);" class="ss" >收藏</a>
+                                <a href="javascript:void(0);" class="j_car" >加入购物车</a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+            <div class="product-configurator">
+                <img src="path-to-your-cpu-image.jpg" alt="CPU Image">
+                <div class="description">
+                    <strong>Intel 酷睿 i9 14900K</strong>
+                </div>
+                <div class="price">￥4999</div>
+                <div class="quantity-selector">
+                    <button onclick="changeQuantity('decrease')">-</button>
+                    <input type="text" id="cpu-quantity" value="1" readonly>
+                    <button onclick="changeQuantity('increase')">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+
+    <script>
+        function changeQuantity(action) {
+            var quantityInput = document.getElementById('cpu-quantity');
+            var currentQuantity = parseInt(quantityInput.value, 10);
+
+            if (action === 'increase') {
+                quantityInput.value = currentQuantity + 1;
+            } else if (action === 'decrease' && currentQuantity > 1) {
+                quantityInput.value = currentQuantity - 1;
+            }
+        }
+    </script>
+
+</body>
+</html>

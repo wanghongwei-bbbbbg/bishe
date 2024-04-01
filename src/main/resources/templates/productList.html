@@ -14,28 +14,28 @@
 <div class="i_bg">
     <div class="content mar_20">
         <div id="favoriteList"></div>
-        <div class="l_list">
+        <div class="l_list2">
             <div class="list_c">
                 <ul class="cate_list">
 
-<!--                    <li th:each="product:${productList}">-->
-<!--                        <div class="name">-->
-<!--                            <a th:href="'/product/findById/'+${product.id}" th:text="${product.name}"></a>-->
-<!--                        </div>-->
-<!--                        <div class="price">-->
-<!--                            <font>￥<span th:text="${product.price}"></span></font> &nbsp;-->
-<!--                        </div>-->
-<!--                        <div class="img">-->
-<!--                            <a th:href="'/product/findById/'+${product.id}">-->
-<!--                                <img th:src="'/images/'+${product.fileName}" width="185"-->
-<!--                                     height="155" />-->
-<!--                            </a>-->
-<!--                        </div>-->
-<!--                        <div class="carbg">-->
-<!--                            <a href="javascript:void(0);" class="ss" >收藏</a>-->
-<!--                            <a href="javascript:void(0);" class="j_car" >加入购物车</a>-->
-<!--                        </div>-->
-<!--                    </li>-->
+                    <!--                    <li th:each="product:${productList}">-->
+                    <!--                        <div class="name">-->
+                    <!--                            <a th:href="'/product/findById/'+${product.id}" th:text="${product.name}"></a>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="price">-->
+                    <!--                            <font>￥<span th:text="${product.price}"></span></font> &nbsp;-->
+                    <!--                        </div>-->
+                    <!--                        <div class="img">-->
+                    <!--                            <a th:href="'/product/findById/'+${product.id}">-->
+                    <!--                                <img th:src="'/images/'+${product.fileName}" width="185"-->
+                    <!--                                     height="155" />-->
+                    <!--                            </a>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="carbg">-->
+                    <!--                            <a href="javascript:void(0);" class="ss" >收藏</a>-->
+                    <!--                            <a href="javascript:void(0);" class="j_car" >加入购物车</a>-->
+                    <!--                        </div>-->
+                    <!--                    </li>-->
 
                     <li th:each="product:${productList}">
                         <div class="name">
@@ -52,13 +52,52 @@
                         </div>
                         <div class="carbg">
                             <a href="javascript:void(0);" class="ss" >收藏</a>
-                            <a href="javascript:void(0);" class="j_car" >加入购物车</a>
+                            <a th:href="'/cart/add/'+${product.id}+'/'+${product.price}+'/1'" class="j_car" >加入购物车</a>
                         </div>
                     </li>
 
                 </ul>
+
             </div>
         </div>
+        <div class="product_div">
+            <div class="i_car_show">
+                <a href="/cart/get">
+                    <div class="car_t">
+
+                        <!--                    购物车 [-->
+                        <!--                    <span th:text="${cartList.size()}"></span>-->
+                        <!--                    ]-->
+
+                        自助DIY [
+                        <span th:text="${cartList.size()}"></span>
+                        ]
+                    </div>
+                </a>
+
+                <div class="car_bg_show">
+                    <div class="un_login">自助DIY</div>
+                    <ul class="cars">
+
+                        <!--                    <li th:each="cart:${cartList}">-->
+                        <!--                        <div class="img"><a th:href="'/product/findById/'+${cart.productId}"><img th:src="'/images/'+${cart.fileName}" width="58" height="58" /></a></div>-->
+                        <!--                        <div class="name"><a th:href="'/product/findById/'+${cart.productId}" th:text="${cart.name}"></a></div>-->
+                        <!--                        <div class="price"><font color="#ff4e00" th:text="'￥'+${cart.price}"></font> X <span class="quantity" th:text="${cart.quantity}"></span>  =  <span class="cost" th:text="${cart.cost}"></span></div>-->
+                        <!--                    </li>-->
+
+                        <li th:each="cart:${cartList}">
+                            <div class="img"><a><img th:src="'/images/'+${cart.fileName}" width="58" height="58" /></a></div>
+                            <div class="name"><a th:text="${cart.name}"></a></div>
+                            <div class="price"><font color="#ff4e00" th:text="'￥'+${cart.price}"></font> X <span class="quantity" th:text="${cart.quantity}"></span>  =  <span class="cost_show" th:text="${cart.cost}"></span></div>
+                        </li>
+                    </ul>
+                    <div class="price_sum">共计&nbsp;<span id="totalCost_show"></span></div>
+                    <div class="price_a"><a href="/cart/get">去结算</a></div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -66,4 +105,27 @@
 <th:block th:include="common.html :: permit"></th:block>
 
 </body>
+
+<script>
+    function changeQuantity(action) {
+        var quantityInput = document.getElementById('cpu-quantity');
+        var currentQuantity = parseInt(quantityInput.value, 10);
+
+        if (action === 'increase') {
+            quantityInput.value = currentQuantity + 1;
+        } else if (action === 'decrease' && currentQuantity > 1) {
+            quantityInput.value = currentQuantity - 1;
+        }
+    }
+    $(function(){
+        //diy总价
+        var array = $(".cost_show");
+        var totalCost = 0;
+        for(var i = 0;i < array.length;i++){
+            var val = parseInt($(".cost_show").eq(i).html());
+            totalCost += val;
+        }
+        $("#totalCost_show").html("￥"+totalCost);
+    });
+</script>
 </html>

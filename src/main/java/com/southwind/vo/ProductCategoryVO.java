@@ -18,6 +18,6 @@ public class ProductCategoryVO {
         this.id = productCategory.getId();
         this.name = productCategory.getName();
         this.parentId = productCategory.getParentId();
-        //因为需要转换成原始数据类型，所以就没有list 的两个属性
+        //因为需要和原始数据类型转换，所以就没有list 的两个属性
     }
 }
