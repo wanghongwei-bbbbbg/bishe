@@ -81,7 +81,7 @@ public class ProductController {
 
     /**
      * 商品搜索
-     * @param keyWord
+     * @param keyWord；搜索关键字
      * @param session
      * @return
      */
@@ -109,6 +109,7 @@ public class ProductController {
         }
         //商品分类
         modelAndView.addObject("list", this.productCategoryService.buildProductCategoryMenu());
+        //返回到该有的页面
         return modelAndView;
     }
 
@@ -139,6 +140,9 @@ public class ProductController {
         //商品分类
         modelAndView.addObject("list", this.productCategoryService.buildProductCategoryMenu());
         //商品详情
+        //宣传标语
+        String[] s = this.productService.getById(id).getDescription().split(" ");
+        modelAndView.addObject("description", s[0]);
         modelAndView.addObject("product", this.productService.getById(id));
         return modelAndView;
     }

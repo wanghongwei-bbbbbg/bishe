@@ -50,7 +50,7 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryMappe
     }
     /**
      *
-     * 找一级菜单
+     * 找一级菜单的product
      * @return
      */
     @Override
@@ -58,6 +58,7 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryMappe
         QueryWrapper<ProductCategory> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("type", 1);
         List<ProductCategory> productCategoryList = this.productCategoryMapper.selectList(queryWrapper);
+        //转成vo类型
         List<ProductCategoryVO> productCategoryVOList = productCategoryList.stream().map(ProductCategoryVO::new).collect(Collectors.toList());
         getLevelOneProduct(productCategoryVOList);
         return productCategoryVOList;

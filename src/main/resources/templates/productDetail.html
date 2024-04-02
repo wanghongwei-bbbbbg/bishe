@@ -25,7 +25,7 @@
             <div class="des_name">
                 <input type="hidden" value="1"  name="entityId" class="n_ipt"/>
                 <p th:text="${product.name}"></p>
-                “开业巨惠，北京专柜直供”，不光低价，“真”才靠谱！
+                <p style="color: #888888;size: 10px" th:text="${description}"></p>
             </div>
             <div class="des_price">
                 本店价格：<b th:text="${product.price}"></b><br/>
@@ -36,27 +36,24 @@
             <div class="des_choice">
                 <span class="fl">型号选择：</span>
                 <ul>
-                    <li class="type checked">30ml
+                    <li class="type checked">盒装
                         <div class="ch_img"></div>
                     </li>
-                    <li class="type">50ml
-                        <div class="ch_img"></div>
-                    </li>
-                    <li class="type">100ml
+                    <li class="type">不带盒装
                         <div class="ch_img"></div>
                     </li>
                 </ul>
             </div>
             <div class="des_choice">
-                <span class="fl">颜色选择：</span>
+                <span class="fl">邮寄选择：</span>
                 <ul>
-                    <li class="color">红色
+                    <li class="color">包邮
                         <div class="ch_img"></div>
                     </li>
-                    <li class="color checked">白色
+                    <li class="color checked">自提
                         <div class="ch_img"></div>
                     </li>
-                    <li class="color">黑色
+                    <li class="color">到付
                         <div class="ch_img"></div>
                     </li>
                 </ul>
@@ -73,7 +70,10 @@
                 <input type="hidden" id="productPrice" value="1">
                 <span class="fl">
 <!--                     <img src="/images/j_car.png" th:onclick="'addCart('+${product.id}+','+${product.price}+')'"/>-->
-                    <img src="/images/j_car.png" th:onclick="'addCart('+${product.id}+','+${product.price}+')'"/>
+
+                    <a th:href="'/cart/add/'+${product.id}+'/'+${product.price}+'/1'" class="j_car" >
+                        <img src="/images/j_car.png" />
+                    </a>
                 </span>
             </div>
         </div>

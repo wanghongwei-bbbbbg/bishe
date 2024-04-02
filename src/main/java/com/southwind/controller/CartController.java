@@ -17,7 +17,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * <p>
@@ -32,6 +36,8 @@ import javax.servlet.http.HttpSession;
 @Slf4j
 public class CartController {
 
+    @Autowired
+    private HttpServletRequest request;
     @Autowired
     private CartService cartService;
     @Autowired
@@ -59,6 +65,7 @@ public class CartController {
      */
     @GetMapping("/add/{productId}/{price}/{quantity}")
     public String add(
+            HttpServletResponse response,
             @PathVariable("productId") Integer productId,
             @PathVariable("price") Float price,
             @PathVariable("quantity") Integer quantity,
@@ -74,6 +81,7 @@ public class CartController {
             log.info("【添加购物车】当前为未登录状态");
             throw new MMallException(ResponseEnum.NOT_LOGIN);
         }
+
         Cart cart = new Cart();
         cart.setUserId(user.getId());
         cart.setProductId(productId);
@@ -83,8 +91,20 @@ public class CartController {
         if(!add){
             log.info("【添加购物车】添加失败");
             throw new MMallException(ResponseEnum.CART_ADD_ERROR);
+        }else {
+            response.setContentType("text/html;charset=utf-8");
+            PrintWriter writer = null;
+            try {
+                writer = response.getWriter();
+                String msg = "alert('添加成功');history.go(-1)";    //回到上一个页面
+                writer.print("<script type='text/javascript'>" + msg + "</script>");
+                writer.flush();
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        return "redirect:/cart/get";
+        return "redirect:/product/detail/"+productId;
     }
 
     /**
