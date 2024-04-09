@@ -4,6 +4,7 @@ package com.southwind.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.southwind.entity.Cart;
 import com.southwind.entity.Orders;
+import com.southwind.entity.Product;
 import com.southwind.entity.User;
 import com.southwind.exception.MMallException;
 import com.southwind.result.ResponseEnum;
@@ -87,24 +88,33 @@ public class CartController {
         cart.setProductId(productId);
         cart.setQuantity(quantity);
         cart.setCost(price * quantity);
+        //通过productid，找 leveloneid
+        Product product = this.productService.findByProductId(productId);
+        Integer categoryleveloneId = product.getCategoryleveloneId();
+
+        boolean flagValue = true;
+        UserController.isHave(session, flagValue, categoryleveloneId);
+
+
         Boolean add = this.cartService.add(cart);
         if(!add){
             log.info("【添加购物车】添加失败");
             throw new MMallException(ResponseEnum.CART_ADD_ERROR);
-        }else {
+        }/*else {
             response.setContentType("text/html;charset=utf-8");
             PrintWriter writer = null;
             try {
                 writer = response.getWriter();
-                String msg = "alert('添加成功');history.go(-1)";    //回到上一个页面
+                String msg = "history.go(-1);alert('添加成功')";    //回到上一个页面
                 writer.print("<script type='text/javascript'>" + msg + "</script>");
                 writer.flush();
                 writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        return "redirect:/product/detail/"+productId;
+        }*/
+
+        return "redirect:/product/list/1/"+categoryleveloneId;
     }
 
     /**

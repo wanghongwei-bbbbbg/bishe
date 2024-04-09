@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test UI</title>
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}"/>
+    <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+<!--    <script type="text/javascript" src="/js/layui.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/layui.css"/>-->
+</head>
+<body>
+<div class="layui-row layui-col-space1">
+    <div class="layui-col-md3">
+        <div class="grid-demo grid-demo-bg1">1/4</div>
+    </div>
+    <div class="layui-col-md3">
+        <div class="grid-demo">1/4</div>
+    </div>
+    <div class="layui-col-md3">
+        <div class="grid-demo grid-demo-bg1">1/4</div>
+    </div>
+    <div class="layui-col-md3">
+        <div class="grid-demo">1/4</div>
+    </div>
+</div>
+<script>
+    // Usage
+    layui.use(function(){
+        var layer = layui.layer;
+        // Welcome
+        layer.msg('Hello World', {icon: 6});
+    });
+</script>
+</body>
+</html>

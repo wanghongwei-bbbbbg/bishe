@@ -38,16 +38,21 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
 
     @Override
     public List<OrdersVO> findAllByUserId(Integer id) {
+        //查询user的order
         QueryWrapper<Orders> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", id);
         List<Orders> ordersList = this.ordersMapper.selectList(queryWrapper);
+        //转换为vo类型
         List<OrdersVO> ordersVOList = new ArrayList<>();
         for (Orders orders : ordersList) {
             OrdersVO ordersVO = new OrdersVO();
+            //将orders的属性传到vo里
             BeanUtils.copyProperties(orders, ordersVO);
+            //查询里面的detail从表里面的数据
             QueryWrapper<OrderDetail> queryWrapper1 = new QueryWrapper<>();
             queryWrapper1.eq("order_id", orders.getId());
             List<OrderDetail> orderDetailList = this.orderDetailMapper.selectList(queryWrapper1);
+            //detail转换为vo类型
             List<OrderDetailVO> orderDetailVOList = new ArrayList<>();
             for (OrderDetail orderDetail : orderDetailList) {
                 OrderDetailVO orderDetailVO = new OrderDetailVO();
@@ -56,9 +61,11 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                 BeanUtils.copyProperties(product, orderDetailVO);
                 orderDetailVOList.add(orderDetailVO);
             }
+            //赋值vo属性
             ordersVO.setOrderDetailList(orderDetailVOList);
             ordersVOList.add(ordersVO);
         }
+
         return ordersVOList;
     }
 }

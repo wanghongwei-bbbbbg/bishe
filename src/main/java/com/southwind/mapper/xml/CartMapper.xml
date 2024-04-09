@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.southwind.mapper.CartMapper">
-
+    <sql id="Base_Column_List">
+        id,
+        product_id,
+        quantity,
+        cost,
+        user_id,
+        create_time,
+        update_time
+    </sql>
+    <resultMap id="BaseResultMap" type="com.southwind.entity.Cart">
+        <result column="id" property="id"/>
+        <result column="product_id" property="productId"/>
+        <result column="quantity" property="quantity"/>
+        <result column="cost" property="cost"/>
+        <result column="user_id" property="userId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
     <delete id="update">
         update cart set quantity = #{param2},cost = #{param3} where id = #{param1}
     </delete>

@@ -15,4 +15,5 @@ import java.util.List;
  */
 public interface ProductService extends IService<Product> {
     public List<Product> findAllByTypeAndProductCategoryId(Integer type,Integer id);
+    public Product findByProductId(Integer productId);
 }

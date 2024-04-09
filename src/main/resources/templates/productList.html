@@ -3,12 +3,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Diy导购</title>
     <th:block th:include="common.html :: source"></th:block>
+    <script type="text/javascript" src="/js/settlement.js"></script>
 </head>
 <body>
 
-<th:block th:include="common.html :: header"></th:block>
+<th:block th:include="commonWithoutCart.html :: header"></th:block>
 <th:block th:include="common.html :: category"></th:block>
 
 <div class="i_bg">
@@ -78,17 +79,180 @@
                 <div class="car_bg_show">
                     <div class="un_login">自助DIY</div>
                     <ul class="cars">
+<!--                        <li th:each="cart:${cartList}">-->
+<!--                            <div class="img"><a><img th:src="'/images/'+${cart.fileName}" width="58" height="58" /></a></div>-->
+<!--                            <div class="name"><a th:text="${cart.name}"></a></div>-->
+<!--                            <div class="price"><font color="#ff4e00" th:text="'￥'+${cart.price}"></font> X <span class="quantity" th:text="${cart.quantity}"></span>  =  <span class="cost_show" th:text="${cart.cost}"></span></div>-->
+<!--                        </li>-->
 
-                        <!--                    <li th:each="cart:${cartList}">-->
-                        <!--                        <div class="img"><a th:href="'/product/findById/'+${cart.productId}"><img th:src="'/images/'+${cart.fileName}" width="58" height="58" /></a></div>-->
-                        <!--                        <div class="name"><a th:href="'/product/findById/'+${cart.productId}" th:text="${cart.name}"></a></div>-->
-                        <!--                        <div class="price"><font color="#ff4e00" th:text="'￥'+${cart.price}"></font> X <span class="quantity" th:text="${cart.quantity}"></span>  =  <span class="cost" th:text="${cart.cost}"></span></div>-->
-                        <!--                    </li>-->
+<!--                        cpu-->
+                        <li>
+                            <div th:each="cart:${cartList}">
+                            <!-- CPU -->
+                            <div th:if="${cart.categoryleveloneId == 548}">
+                                <div class="img">
+                                    <a><img th:src="'/images/'+${cart.fileName}" width="58" height="58" /></a>
+                                </div>
+                                <div class="name">
+                                    <a th:text="${cart.name}"></a>
+                                </div>
+                                <div class="price">
+                                    <font color="#ff4e00" th:text="'￥'+${cart.price}"></font> X <span class="quantity" th:text="${cart.quantity}"></span>  =  <span class="cost_show" th:text="${cart.cost}"></span>
+                                </div>
+                                <div><a href="javascript:void(0);" onclick="removeCart(this);" class="delete">删除</a></div>
+                            </div>
+                            </div>
+                            <div th:if="${!session.cpuFlag}">
+                                <!-- 如果没有 CPU 类型的商品，显示这个消息 -->
+                                <div class="img">
+                                    <a><img src="/images/diy/cpu.png" width="58" height="58" /></a>
+                                </div>
+                                <div class="name">
+                                   <strong> <a href="product/list/1/548">请选择CPU</a></strong>
+                                </div>
+                            </div>
 
-                        <li th:each="cart:${cartList}">
-                            <div class="img"><a><img th:src="'/images/'+${cart.fileName}" width="58" height="58" /></a></div>
-                            <div class="name"><a th:text="${cart.name}"></a></div>
-                            <div class="price"><font color="#ff4e00" th:text="'￥'+${cart.price}"></font> X <span class="quantity" th:text="${cart.quantity}"></span>  =  <span class="cost_show" th:text="${cart.cost}"></span></div>
+                        </li>
+<!--                        主板-->
+
+                        <li>
+                            <div th:each="cart:${cartList}">
+                            <!-- zhuban -->
+                            <div th:if="${cart.categoryleveloneId == 628}">
+                                <div class="img">
+                                    <a><img th:src="'/images/'+${cart.fileName}" width="58" height="58" /></a>
+                                </div>
+                                <div class="name">
+                                    <a th:text="${cart.name}"></a>
+                                </div>
+                                <div class="price">
+                                    <font color="#ff4e00" th:text="'￥'+${cart.price}"></font> X <span class="quantity" th:text="${cart.quantity}"></span>  =  <span class="cost_show" th:text="${cart.cost}"></span>
+                                </div>
+                                <div><a href="javascript:void(0);" onclick="removeCart(this);" class="delete">删除</a></div>
+                            </div>
+                            </div>
+                            <div th:if="${!session.boardFlag}">
+                                <!-- 如果没有 CPU 类型的商品，显示这个消息 -->
+                                <div class="img">
+                                    <a><img src="/images/diy/board.png" width="58" height="58" /></a>
+                                </div>
+                                <div class="name">
+                                   <strong><a href="product/list/1/548">请选择主板</a></strong>
+                                </div>
+                            </div>
+
+                        </li>
+
+                        <li>
+                            <div th:each="cart:${cartList}">
+                                <!-- yingpan -->
+                                <div th:if="${cart.categoryleveloneId == 660}">
+                                    <div class="img">
+                                        <a><img th:src="'/images/'+${cart.fileName}" width="58" height="58" /></a>
+                                    </div>
+                                    <div class="name">
+                                        <a th:text="${cart.name}"></a>
+                                    </div>
+                                    <div class="price">
+                                        <font color="#ff4e00" th:text="'￥'+${cart.price}"></font> X <span class="quantity" th:text="${cart.quantity}"></span>  =  <span class="cost_show" th:text="${cart.cost}"></span>
+                                    </div>
+                                    <div><a href="javascript:void(0);" onclick="removeCart(this);" class="delete">删除</a></div>
+                                </div>
+                            </div>
+                                <div th:if="${!session.yingpanFlag}">
+                                    <!-- 如果没有 硬盘 类型的商品，显示这个消息 -->
+                                    <div class="img">
+                                        <a><img src="/images/diy/yingpan.png" width="58" height="58" /></a>
+                                    </div>
+                                    <div class="name">
+                                        <strong><a href="product/list/1/548">请选择硬盘</a></strong>
+                                    </div>
+                                </div>
+
+                        </li>
+
+                        <li>
+                            <div th:each="cart:${cartList}">
+                                <!-- xianka -->
+                                <div th:if="${cart.categoryleveloneId == 670}">
+                                    <div class="img">
+                                        <a><img th:src="'/images/'+${cart.fileName}" width="58" height="58" /></a>
+                                    </div>
+                                    <div class="name">
+                                        <a th:text="${cart.name}"></a>
+                                    </div>
+                                    <div class="price">
+                                        <font color="#ff4e00" th:text="'￥'+${cart.price}"></font> X <span class="quantity" th:text="${cart.quantity}"></span>  =  <span class="cost_show" th:text="${cart.cost}"></span>
+                                    </div>
+                                    <div><a href="javascript:void(0);" onclick="removeCart(this);" class="delete">删除</a></div>
+                                </div>
+                            </div>
+                            <div th:if="${!session.xiankaFlag}">
+                                <!-- 如果没有 显卡 类型的商品，显示这个消息 -->
+                                <div class="img">
+                                    <a><img src="/images/diy/xianka.png" width="58" height="58" /></a>
+                                </div>
+                                <div class="name">
+                                    <strong><a href="product/list/1/670">请选择显卡</a></strong>
+                                </div>
+                            </div>
+
+                        </li>
+<!--                        ssd-->
+                        <li>
+                            <div th:each="cart:${cartList}">
+                                <!-- ssd -->
+                                <div th:if="${cart.categoryleveloneId == 681}">
+                                    <div class="img">
+                                        <a><img th:src="'/images/'+${cart.fileName}" width="58" height="58" /></a>
+                                    </div>
+                                    <div class="name">
+                                        <a th:text="${cart.name}"></a>
+                                    </div>
+                                    <div class="price">
+                                        <font color="#ff4e00" th:text="'￥'+${cart.price}"></font> X <span class="quantity" th:text="${cart.quantity}"></span>  =  <span class="cost_show" th:text="${cart.cost}"></span>
+                                    </div>
+                                    <div><a href="javascript:void(0);" onclick="removeCart(this);" class="delete">删除</a></div>
+                                </div>
+                            </div>
+                            <div th:if="${!session.ssdFlag}">
+                                <!-- 如果没有 硬盘 类型的商品，显示这个消息 -->
+                                <div class="img">
+                                    <a><img src="/images/diy/ssd.png" width="58" height="58" /></a>
+                                </div>
+                                <div class="name">
+                                   <strong> <a href="product/list/1/681">请选择内存条</a></strong>
+                                </div>
+                            </div>
+                        </li>
+
+<!--                        电源-->
+                        <li>
+                            <div th:each="cart:${cartList}">
+                                <!-- 电源 -->
+                                <div th:if="${cart.categoryleveloneId == 777}">
+                                    <div class="img">
+                                        <a><img th:src="'/images/'+${cart.fileName}" width="58" height="58" /></a>
+                                    </div>
+                                    <div class="name">
+                                        <a th:text="${cart.name}"></a>
+                                    </div>
+                                    <div class="price">
+                                        <font color="#ff4e00" th:text="'￥'+${cart.price}"></font> X <span class="quantity" th:text="${cart.quantity}"></span>  =  <span class="cost_show" th:text="${cart.cost}"></span>
+                                    </div>
+                                    <div><a href="javascript:void(0);" onclick="removeCart(this);" class="delete">删除</a></div>
+                                </div>
+                            </div>
+                            <div th:if="${!session.eletroFlag}">
+                                <!-- 如果没有 硬盘 类型的商品，显示这个消息 -->
+                                <div class="img">
+                                    <a><img src="/images/diy/eletro.png" width="58" height="58" /></a>
+                                </div>
+                                <div class="name">
+                                   <strong> <a href="product/list/1/777">请选择电源</a></strong>
+                                </div>
+                            </div>
+
                         </li>
                     </ul>
                     <div class="price_sum">共计&nbsp;<span id="totalCost_show"></span></div>

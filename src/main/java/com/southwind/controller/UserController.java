@@ -13,6 +13,7 @@ import com.southwind.service.OrdersService;
 import com.southwind.service.UserAddressService;
 import com.southwind.service.UserService;
 import com.southwind.utils.RegexValidateUtil;
+import com.southwind.vo.CartVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -85,8 +86,59 @@ public class UserController {
         }
         User login = this.userService.login(userLoginForm);
         session.setAttribute("user",login); //传入用户数据
+
+        boolean flagValue = false;
+        session.setAttribute("cpuFlag", flagValue);
+
+        session.setAttribute("boardFlag", flagValue);
+
+        session.setAttribute("boxFlag", flagValue);
+
+        session.setAttribute("eletroFlag", flagValue);
+        session.setAttribute("fansFlag", flagValue);
+        session.setAttribute("ssdFlag", flagValue);
+        session.setAttribute("xiankaFlag", flagValue);
+        session.setAttribute("yingpanFlag", flagValue);
+        //遍历用户购物车，如果购物车里面有商品则赋值Flag
+        List<CartVO> cartVOList = this.cartService.findVOListByUserId(login.getId());
+        for (CartVO cartVO : cartVOList) {
+            Integer categoryleveloneId = cartVO.getCategoryleveloneId();
+            flagValue = true;
+
+            isHave(session, flagValue, categoryleveloneId);
+        }
         return "redirect:/productCategory/main"; //跳到请求/productCategory/main；所以还要写controller
         //return modelandview；会把数据传过去，同时渲染视图
+    }
+
+    static void isHave(HttpSession session, boolean flagValue, Integer categoryleveloneId) {
+        if (categoryleveloneId == 548){ //cpu
+            session.setAttribute("cpuFlag", flagValue);
+        }
+        if (categoryleveloneId == 628){ //zhuban
+            session.setAttribute("boardFlag", flagValue);
+        }
+        if (categoryleveloneId == 660){ //硬盘
+            session.setAttribute("yingpanFlag", flagValue);
+        }
+        if (categoryleveloneId == 670){ //显卡
+            session.setAttribute("xiankaFlag", flagValue);
+        }
+        if (categoryleveloneId == 681){ //硬盘
+            session.setAttribute("ssdFlag", flagValue);
+        }
+        if (categoryleveloneId == 777){ //硬盘
+            session.setAttribute("eletroFlag", flagValue);
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    @GetMapping("/userInfo")
+    public String userIndex(){
+        return "redirect:/userInfo";
     }
 
     /**

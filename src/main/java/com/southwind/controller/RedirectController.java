@@ -49,6 +49,12 @@ public class RedirectController {
     public String main(){
         return "redirect:/productCategory/main";
     }
+    @GetMapping("/index")
+    public ModelAndView index() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("test");
+        return mv;
+    }
 
     @GetMapping("favicon.ico")
     @ResponseBody

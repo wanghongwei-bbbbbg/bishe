@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Diy导购</title>
     <th:block th:include="common.html :: source"></th:block>
 </head>
 <body>
@@ -67,8 +67,8 @@
                     <td th:if="${address.isdefault == 1}">是</td>
                     <td th:if="${address.isdefault == 0}">否</td>
                     <td>
-                        <a href="">删除</a>
-                        <a href="">修改</a>
+                        <a href="/userAddress/delete">删除</a>
+                        <a href="/userAddress/revise">修改</a>
                     </td>
                 </tr>
 

@@ -42,4 +42,10 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         queryWrapper.eq(column,id);
         return this.productMapper.selectList(queryWrapper);
     }
+
+    @Override
+    public Product findByProductId(Integer productId) {
+        Product product = productMapper.selectById(productId);
+        return product;
+    }
 }

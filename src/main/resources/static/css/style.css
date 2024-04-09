@@ -7,6 +7,9 @@
     color: #555555;
 }
 
+.description {
+    flex-grow: 1;
+}
 div, table {
     margin: 0 auto;
 }

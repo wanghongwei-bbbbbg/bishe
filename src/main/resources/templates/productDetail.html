@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Diy导购</title>
     <th:block th:include="common.html :: source"></th:block>
     <script type="text/javascript" src="/js/productDetail.js"></script>
 </head>
@@ -69,11 +69,11 @@
                 <input type="hidden" id="productId" value="1">
                 <input type="hidden" id="productPrice" value="1">
                 <span class="fl">
-<!--                     <img src="/images/j_car.png" th:onclick="'addCart('+${product.id}+','+${product.price}+')'"/>-->
+                     <img src="/images/j_car.png" th:onclick="'addCart('+${product.id}+','+${product.price}+')'"/>
 
-                    <a th:href="'/cart/add/'+${product.id}+'/'+${product.price}+'/1'" class="j_car" >
+<!--                    <a th:href="'/cart/add/'+${product.id}+'/'+${product.price}+'/1'" class="j_car" >
                         <img src="/images/j_car.png" />
-                    </a>
+                    </a>-->
                 </span>
             </div>
         </div>

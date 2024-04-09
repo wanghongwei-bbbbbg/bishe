@@ -12,7 +12,7 @@ $(function(){
 });
 
 function addQuantity(obj){
-    let index = $(".car_btn_2").index(obj);
+    let index = $(".car_btn_2").index(obj); //点击的当前行index
     let quantity = parseInt($(".car_ipt").eq(index).val());
     let stock = parseInt($(".productStock").eq(index).val());
     if(quantity == stock){
@@ -27,6 +27,7 @@ function addQuantity(obj){
        url:"/cart/update/"+id+"/"+quantity+"/"+cost,
        type:"POST",
        success:function (data) {
+           //如果成功，则更新前端数据，后端没有返回数据
             if(data == "success"){
                 $(".qprice").eq(index).text('￥'+cost);
                 $(".car_ipt").eq(index).val(quantity);
@@ -58,6 +59,7 @@ function subQuantity(obj){
         url:"/cart/update/"+id+"/"+quantity+"/"+cost,
         type:"POST",
         success:function (data) {
+            //如果成功，则更新前端数据
             if(data == "success"){
                 $(".qprice").eq(index).text('￥'+cost);
                 $(".car_ipt").eq(index).val(quantity);

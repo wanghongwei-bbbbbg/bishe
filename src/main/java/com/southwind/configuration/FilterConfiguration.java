@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class FilterConfiguration {
-
+    //过滤器判断用户是否登录
     @Bean
     public FilterRegistrationBean registrationBean(){
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();

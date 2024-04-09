@@ -4,3 +4,24 @@
 4.用户数据存储再session里，cartlist ，product存储object
 5.图片便利一方面需要顺序命名好，且利用前端的xxstat.index；遍历图片
 6.先验证数据传入是否有误，再去写业务
+QueryWrapper
+
+开发任务：
+1.diy页面的完成；前端页面用if，仿照header登录那里
+2.兼容性校验
+3.补货
+4.后台管理系统开发
+5.productlist的分页
+6.装机分案发表
+
+confirm("是否确定删除?"
+alert("购物车为空，不能结算！");
+
+<tr th:each="orderDetail:${orders.getOrderDetailList()}">
+
+548	CPU	0	1
+628	主板	0	1
+660	硬盘	0	1
+670	显卡	0	1
+681	内存条	0	1
+777	电源	0	1

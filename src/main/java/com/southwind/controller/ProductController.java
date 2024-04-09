@@ -80,6 +80,41 @@ public class ProductController {
     }
 
     /**
+     * 商品列表http://localhost:8080/product/list/1/product/list/1/681
+     * @param type；几级分类
+     * @param productCategoryId；类别对应的ID
+     * @param session
+     * @return
+     */
+    @GetMapping("/list/{type}/product/list/1/{id}")
+    public ModelAndView list2(
+            @PathVariable("type") Integer type,
+            @PathVariable("id") Integer productCategoryId,
+            HttpSession session
+    ){
+        if(type == null || productCategoryId == null){
+            log.info("【商品列表】参数为空");
+            throw new MMallException(ResponseEnum.PARAMETER_NULL);
+        }
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("productList");
+        modelAndView.addObject("productList", this.productService.findAllByTypeAndProductCategoryId(type, productCategoryId));
+        //判断是否为登录用户
+        User user = (User) session.getAttribute("user");
+        if(user == null){
+            //未登录
+            modelAndView.addObject("cartList", new ArrayList<>());
+        }else{
+            //登录用户
+            //查询该用户的购物车记录
+            modelAndView.addObject("cartList", this.cartService.findVOListByUserId(user.getId()));
+        }
+        //商品分类
+        modelAndView.addObject("list", this.productCategoryService.buildProductCategoryMenu());
+        return modelAndView;
+    }
+
+    /**
      * 商品搜索
      * @param keyWord；搜索关键字
      * @param session
