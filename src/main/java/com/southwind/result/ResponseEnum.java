@@ -20,7 +20,8 @@ public enum ResponseEnum {
     ORDERS_CREATE_ERROR(316,"创建订单主表失败"),
     ORDER_DETAIL_CREATE_ERROR(317,"创建订单详情失败"),
     USER_ADDRESS_ADD_ERROR(318,"添加新地址失败"),
-    USER_ADDRESS_SET_DEFAULT_ERROR(319,"默认地址修改失败");
+    USER_ADDRESS_SET_DEFAULT_ERROR(319,"默认地址修改失败"),
+    CART_COMPATIBLE_ERROR(320,"兼容性校验失败，先添加主板");
 
     public Integer getCode() {
         return code;

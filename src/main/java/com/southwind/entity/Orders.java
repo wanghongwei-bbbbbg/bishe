@@ -54,6 +54,11 @@ import lombok.EqualsAndHashCode;
      */
       private String serialnumber;
 
+        /**
+         * 状态号
+         */
+      private String status;
+
       /**
      * 创建时间
      */

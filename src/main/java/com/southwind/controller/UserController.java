@@ -111,6 +111,10 @@ public class UserController {
         //return modelandview；会把数据传过去，同时渲染视图
     }
 
+    /**
+     * 用户登录
+     * @return
+     */
     static void isHave(HttpSession session, boolean flagValue, Integer categoryleveloneId) {
         if (categoryleveloneId == 548){ //cpu
             session.setAttribute("cpuFlag", flagValue);

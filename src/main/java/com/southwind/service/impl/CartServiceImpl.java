@@ -40,10 +40,16 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements Ca
     private OrderDetailMapper orderDetailMapper;
     @Autowired
     private UserAddressMapper userAddressMapper;
+    @Autowired
+    private CompatibilityMapper compatibilityMapper;
+
+
 
     @Override
     @Transactional
     public Boolean add(Cart cart) {
+        //查询表格
+
         //添加购物车
         int insert = this.cartMapper.insert(cart);
         if(insert != 1){
