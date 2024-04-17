@@ -104,7 +104,6 @@ public class UserController {
         for (CartVO cartVO : cartVOList) {
             Integer categoryleveloneId = cartVO.getCategoryleveloneId();
             flagValue = true;
-
             isHave(session, flagValue, categoryleveloneId);
         }
         return "redirect:/productCategory/main"; //跳到请求/productCategory/main；所以还要写controller

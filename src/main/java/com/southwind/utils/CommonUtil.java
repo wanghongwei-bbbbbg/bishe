@@ -46,4 +46,25 @@ public class CommonUtil {
         //商品分类
         modelAndView.addObject("list", this.productCategoryService.buildProductCategoryMenu());
     }
+
+    public static void setSessionBydelete(HttpSession session, boolean flagValue, Integer categoryleveloneId) {
+        if (categoryleveloneId == 548){ //cpu
+            session.setAttribute("cpuFlag", flagValue);
+        }
+        if (categoryleveloneId == 628){ //zhuban
+            session.setAttribute("boardFlag", flagValue);
+        }
+        if (categoryleveloneId == 660){ //硬盘
+            session.setAttribute("yingpanFlag", flagValue);
+        }
+        if (categoryleveloneId == 670){ //显卡
+            session.setAttribute("xiankaFlag", flagValue);
+        }
+        if (categoryleveloneId == 681){ //ssd
+            session.setAttribute("ssdFlag", flagValue);
+        }
+        if (categoryleveloneId == 777){ //电源
+            session.setAttribute("eletroFlag", flagValue);
+        }
+    }
 }

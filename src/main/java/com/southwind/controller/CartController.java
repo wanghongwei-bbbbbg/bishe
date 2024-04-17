@@ -9,6 +9,7 @@ import com.southwind.service.CartService;
 import com.southwind.service.CompatibilityService;
 import com.southwind.service.ProductService;
 import com.southwind.service.UserAddressService;
+import com.southwind.utils.CommonUtil;
 import com.southwind.utils.DescriptionParser;
 import com.southwind.vo.CartVO;
 import lombok.extern.slf4j.Slf4j;
@@ -197,8 +198,17 @@ public class CartController {
             log.info("【更新购物车】当前为未登录状态");
             throw new MMallException(ResponseEnum.NOT_LOGIN);
         }
+        Cart cart = this.cartService.getById(id);
+
         Boolean delete = this.cartService.delete(id);
-        if (delete) return "redirect:/cart/get";
+
+        Product product = this.productService.findByProductId(cart.getProductId());
+        Integer categoryleveloneId = product.getCategoryleveloneId();
+        boolean flagValue = false;
+        if (delete){
+            CommonUtil.setSessionBydelete(session,flagValue,categoryleveloneId);
+            return "redirect:/cart/get";
+        }
         return null;
     }
 
@@ -283,11 +293,13 @@ public class CartController {
             //表中为空或者两个id没有吻合
             //判别商品类型
             //有主板
+            Map<String, String> details = DescriptionParser.parseDescription(descriptionByBoard);
+            String chipset = details.get("主芯片组");
+            String memory = details.get("内存类型");
+            descriptionByAdd = product.getDescription();
             if (categoryleveloneId == 548) { //add的是CPU
-                descriptionByAdd = product.getDescription();
+
                 Integer categoryleveltwoId = product.getCategoryleveltwoId();
-                Map<String, String> details = DescriptionParser.parseDescription(descriptionByBoard);
-                String chipset = details.get("主芯片组");
                 String cpuStyle = DescriptionParser.extractBrandFromChipset(chipset); //AMD 或者 Intel
 
                 if (categoryleveltwoId == 778 || cpuStyle == "Intel") {
@@ -305,6 +317,28 @@ public class CartController {
                     two.setProductId1(boardId);
                     two.setCompatible(0);
                     two.setReason("cpu和主板芯片不兼容");
+                    compatibilityService.save(one);
+                    compatibilityService.save(two);
+                    return false;
+                }
+            }
+            if (categoryleveloneId == 681){ //add的是ssd
+                String memoryStyle = DescriptionParser.parseSSDDescription(descriptionByAdd); //DDR4 或者 DDR5
+                if (memory.indexOf(memoryStyle) != -1){
+                    //无冲突
+                    return true;
+                } else {
+                    //写入冲突表
+                    Compatibility one = new Compatibility();
+                    one.setProductId1(productId);
+                    one.setProductId2(boardId);
+                    one.setCompatible(0);
+                    one.setReason("主板是"+memory+"，所加购的ssd是"+memoryStyle);
+                    Compatibility two = new Compatibility();
+                    two.setProductId2(productId);
+                    two.setProductId1(boardId);
+                    two.setCompatible(0);
+                    two.setReason("主板是"+memory+"，所加购的ssd是"+memoryStyle);
                     compatibilityService.save(one);
                     compatibilityService.save(two);
                     return false;
