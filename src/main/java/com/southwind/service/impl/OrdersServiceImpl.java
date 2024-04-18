@@ -68,4 +68,36 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
 
         return ordersVOList;
     }
+
+    @Override
+    public List<OrdersVO> findALL() {
+        //查询所有用户发布的装机方案
+        QueryWrapper<Orders> queryWrapper = new QueryWrapper<>();
+        List<Orders> ordersList = this.ordersMapper.selectList(queryWrapper);
+        //转换为vo类型
+        List<OrdersVO> ordersVOList = new ArrayList<>();
+        for (Orders orders : ordersList) {
+            OrdersVO ordersVO = new OrdersVO();
+            //将orders的属性传到vo里
+            BeanUtils.copyProperties(orders, ordersVO);
+            //查询里面的detail从表里面的数据
+            QueryWrapper<OrderDetail> queryWrapper1 = new QueryWrapper<>();
+            queryWrapper1.eq("order_id", orders.getId());
+            List<OrderDetail> orderDetailList = this.orderDetailMapper.selectList(queryWrapper1);
+            //detail转换为vo类型
+            List<OrderDetailVO> orderDetailVOList = new ArrayList<>();
+            for (OrderDetail orderDetail : orderDetailList) {
+                OrderDetailVO orderDetailVO = new OrderDetailVO();
+                BeanUtils.copyProperties(orderDetail, orderDetailVO);
+                Product product = this.productMapper.selectById(orderDetail.getProductId());
+                BeanUtils.copyProperties(product, orderDetailVO);
+                orderDetailVOList.add(orderDetailVO);
+            }
+            //赋值vo属性
+            ordersVO.setOrderDetailList(orderDetailVOList);
+            ordersVOList.add(ordersVO);
+        }
+
+        return ordersVOList;
+    }
 }

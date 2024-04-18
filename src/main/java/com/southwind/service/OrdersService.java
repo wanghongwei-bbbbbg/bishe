@@ -16,4 +16,6 @@ import java.util.List;
  */
 public interface OrdersService extends IService<Orders> {
     public List<OrdersVO> findAllByUserId(Integer id);
+
+    public List<OrdersVO> findALL();
 }
