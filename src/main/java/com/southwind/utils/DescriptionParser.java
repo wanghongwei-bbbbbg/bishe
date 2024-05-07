@@ -1,7 +1,9 @@
 package com.southwind.utils;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -73,6 +75,42 @@ public class DescriptionParser {
             return matcher.group(1); // 返回找到的内存类型
         }
         return null; // 如果没有的内存类型，则返回null
+    }
+
+    public static String extractYingPanInterfaceType(String input) {
+        // 使用正则表达式匹配接口类型
+        Pattern pattern = Pattern.compile("接口类型：(.*?)接口");
+        Matcher matcher = pattern.matcher(input);
+
+        // 如果找到匹配项，则返回匹配的接口类型
+        if (matcher.find()) {
+            return matcher.group(1);
+        } else {
+            return "未知"; // 如果未找到匹配项，则返回未知
+        }
+    }
+
+    public static int compareStrings(String input1, String input2) {
+        Set<String> substrings1 = getAllSubstrings(input1);
+        Set<String> substrings2 = getAllSubstrings(input2);
+
+        for (String substring : substrings1) {
+            if (substrings2.contains(substring)) {
+                return 1;
+            }
+        }
+
+        return -1;
+    }
+
+    public static Set<String> getAllSubstrings(String str) {
+        Set<String> substrings = new HashSet<>();
+        for (int i = 0; i < str.length(); i++) {
+            for (int j = i + 1; j <= str.length(); j++) {
+                substrings.add(str.substring(i, j));
+            }
+        }
+        return substrings;
     }
 
 }

@@ -2,4 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.southwind.mapper.OrdersMapper">
 
+<select id="getCostById" resultType="java.lang.Float">
+    select cost from orders where id = #{id}
+    </select>
 </mapper>

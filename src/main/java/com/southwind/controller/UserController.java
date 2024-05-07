@@ -35,7 +35,7 @@ import java.util.List;
  * </p>
  *
  * @author admin
- * @since 2021-11-22
+ * @since 2024-3-18
  */
 @Controller
 @RequestMapping("/user")//与前端页面对应，但地址栏上没有user
@@ -127,7 +127,7 @@ public class UserController {
         if (categoryleveloneId == 670){ //显卡
             session.setAttribute("xiankaFlag", flagValue);
         }
-        if (categoryleveloneId == 681){ //硬盘
+        if (categoryleveloneId == 681){ //ssd
             session.setAttribute("ssdFlag", flagValue);
         }
         if (categoryleveloneId == 777){ //硬盘

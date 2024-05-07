@@ -7,6 +7,7 @@ import com.southwind.entity.Product;
 import com.southwind.mapper.OrderDetailMapper;
 import com.southwind.mapper.OrdersMapper;
 import com.southwind.mapper.ProductMapper;
+import com.southwind.mapper.SchemeMapper;
 import com.southwind.service.OrdersService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.southwind.vo.OrderDetailVO;
@@ -24,7 +25,7 @@ import java.util.List;
  * </p>
  *
  * @author admin
- * @since 2021-11-22
+ * @since 2024-3-18
  */
 @Service
 public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> implements OrdersService {
@@ -35,6 +36,8 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     private OrderDetailMapper orderDetailMapper;
     @Autowired
     private ProductMapper productMapper;
+    @Autowired
+    private SchemeMapper schemeMapper;
 
     @Override
     public List<OrdersVO> findAllByUserId(Integer id) {

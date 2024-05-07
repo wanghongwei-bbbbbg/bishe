@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  * </p>
  *
  * @author admin
- * @since 2021-11-22
+ * @since 2024-3-18
  */
 @Service
 public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryMapper, ProductCategory> implements ProductCategoryService {

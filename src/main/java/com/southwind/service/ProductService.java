@@ -11,7 +11,7 @@ import java.util.List;
  * </p>
  *
  * @author admin
- * @since 2021-11-22
+ * @since 2024-3-18
  */
 public interface ProductService extends IService<Product> {
     public List<Product> findAllByTypeAndProductCategoryId(Integer type,Integer id);

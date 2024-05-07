@@ -11,7 +11,7 @@ import com.southwind.form.UserRegisterForm;
  * </p>
  *
  * @author admin
- * @since 2021-11-22
+ * @since 2024-3-18
  */
 public interface UserService extends IService<User> {
     public User register(UserRegisterForm userRegisterForm);

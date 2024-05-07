@@ -33,7 +33,7 @@ import java.util.Map;
  * </p>
  *
  * @author admin
- * @since 2021-11-22
+ * @since 2024-3-18
  */
 @Controller
 @RequestMapping("/cart")
@@ -293,9 +293,11 @@ public class CartController {
             //表中为空或者两个id没有吻合
             //判别商品类型
             //有主板
+            //下面检测的是主板的各类型接口
             Map<String, String> details = DescriptionParser.parseDescription(descriptionByBoard);
             String chipset = details.get("主芯片组");
             String memory = details.get("内存类型");
+            String yingpan = details.get("存储接口");
             descriptionByAdd = product.getDescription();
             if (categoryleveloneId == 548) { //add的是CPU
 
@@ -307,40 +309,32 @@ public class CartController {
                     return true;
                 } else {
                     //写入冲突表
-                    Compatibility one = new Compatibility();
-                    one.setProductId1(productId);
-                    one.setProductId2(boardId);
-                    one.setCompatible(0);
-                    one.setReason("cpu和主板芯片不兼容");
-                    Compatibility two = new Compatibility();
-                    two.setProductId2(productId);
-                    two.setProductId1(boardId);
-                    two.setCompatible(0);
-                    two.setReason("cpu和主板芯片不兼容");
-                    compatibilityService.save(one);
-                    compatibilityService.save(two);
+                    String reason = "主板是"+yingpan+"，所加购的ssd是"+cpuStyle;
+                    saveReason(reason,productId,boardId);
                     return false;
                 }
             }
-            if (categoryleveloneId == 681){ //add的是ssd
+            else if (categoryleveloneId == 681){ //add的是ssd
                 String memoryStyle = DescriptionParser.parseSSDDescription(descriptionByAdd); //DDR4 或者 DDR5
                 if (memory.indexOf(memoryStyle) != -1){
                     //无冲突
                     return true;
                 } else {
                     //写入冲突表
-                    Compatibility one = new Compatibility();
-                    one.setProductId1(productId);
-                    one.setProductId2(boardId);
-                    one.setCompatible(0);
-                    one.setReason("主板是"+memory+"，所加购的ssd是"+memoryStyle);
-                    Compatibility two = new Compatibility();
-                    two.setProductId2(productId);
-                    two.setProductId1(boardId);
-                    two.setCompatible(0);
-                    two.setReason("主板是"+memory+"，所加购的ssd是"+memoryStyle);
-                    compatibilityService.save(one);
-                    compatibilityService.save(two);
+                    String reason = "主板是"+yingpan+"，所加购的ssd是"+memoryStyle;
+                    saveReason(reason,productId,boardId);
+                    return false;
+                }
+            }
+            else if (categoryleveloneId == 660){//add的是yingpan
+                String yingpanStyle = DescriptionParser.extractYingPanInterfaceType(descriptionByAdd);
+                if (DescriptionParser.compareStrings(yingpanStyle, yingpan) != -1){
+                    //无冲突
+                    return true;
+                } else {
+                    //写入冲突表
+                    String reason = "主板是"+yingpan+"，所加购的硬盘是"+yingpanStyle;
+                    saveReason(reason,productId,boardId);
                     return false;
                 }
             }
@@ -351,6 +345,23 @@ public class CartController {
 
         }
         return false;
+    }
+
+    public boolean saveReason(String reason,Integer productId1,Integer productId2){
+        //写入冲突表
+        Compatibility one = new Compatibility();
+        one.setProductId1(productId1);
+        one.setProductId2(productId2);
+        one.setCompatible(0);
+        one.setReason(reason);
+        Compatibility two = new Compatibility();
+        two.setProductId2(productId2);
+        two.setProductId1(productId1);
+        two.setCompatible(0);
+        two.setReason(reason);
+        compatibilityService.save(one);
+        compatibilityService.save(two);
+        return true;
     }
 }
 
